@@ -19,7 +19,7 @@ static void ReadNumbers(const std::filesystem::path& file, std::array<uint32_t, 
 
     uint32_t lNum, rNum;
     uint16_t n = 0;
-    while (in >> lNum >> rNum)
+    while (in >> lNum >> rNum && n < len)
     {
         lNumbers[n] = lNum;
         rNumbers[n] = rNum;
