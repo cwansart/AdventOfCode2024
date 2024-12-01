@@ -8,9 +8,8 @@
 
 constexpr size_t len = 1000;
 
-static void ReadNumbers(std::array<int, len>& lNumbers, std::array<int, len>& rNumbers)
+static void ReadNumbers(const std::filesystem::path& file, std::array<int, len>& lNumbers, std::array<int, len>& rNumbers)
 {
-    const std::filesystem::path file{ "C:/src/AdventOfCode2024/Day1/input.txt" };
     std::ifstream in{ file };
     if (!in)
     {
@@ -53,12 +52,19 @@ static unsigned int Part2(const std::array<int, len>& lNumbers, const std::array
     return similarity;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc < 2)
+    {
+        std::cerr << "missing file path parameter" << std::endl;
+        return -1;
+    }
+    const std::filesystem::path file{ argv[1] };
+
     try
     {
         std::array<int, len> lNumbers{}, rNumbers{};
-        ReadNumbers(lNumbers, rNumbers);
+        ReadNumbers(file, lNumbers, rNumbers);
         auto dist = Part1(lNumbers, rNumbers);
         auto similarity = Part2(lNumbers, rNumbers);
 
